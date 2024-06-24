@@ -16,7 +16,7 @@ def consultaBanco():
 
             for resultado in resultados:
                 # Atribua cada coluna a uma variável
-                nome_biblioteca = resultado[0]
+                nome_biblioteca = str(resultado[0])
                 data = resultado[1]
                 tempo_queda = resultado[2]
 
