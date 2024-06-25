@@ -21,8 +21,8 @@ def escrever_email(outlook, dest, assunto, corpo, nome_biblioteca):
 
 def enviar_mensagens_internet():
 
-    dados = consultaBanco()
     bibliotecas_chamados_ativos = consultaChamadosAtivos()
+    dados = consultaBanco()
     email_dict = pegarEMAIL()
         
     if email_dict is None:
