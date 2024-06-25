@@ -41,8 +41,8 @@ def consultaChamadosAtivos():
     
     email_dict = pegarEMAIL()
 
-    lista_nome_chamados = []
     lista_nome_bibliotecas = []
+    lista_nome_chamados = []
     for nome in email_dict.keys():
         lista_nome_bibliotecas.append(nome)
         lista_nome_chamados.append(f'Queda de internet na {nome}')
