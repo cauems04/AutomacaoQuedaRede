@@ -42,29 +42,38 @@ def consultaChamadosAtivos():
     email_dict = pegarEMAIL()
 
     lista_nome_chamados = []
+    lista_nome_bibliotecas = []
     for nome in email_dict.keys():
+        lista_nome_bibliotecas.append(nome)
         lista_nome_chamados.append(f'Queda de internet na {nome}')
 
     conexao = conectar_banco_de_dados('tihdteste')
     if conexao:
         try:
             cursor = conexao.cursor()
-            for nome in lista_nome_chamados:
-                consulta = (f"SELECT * FROM glpi_tickets WHERE name = {nome} AND status = 1;")
-                cursor.execute(consulta)
+            for nome_chamado, nome_biblioteca in zip(lista_nome_chamados, lista_nome_bibliotecas):
+                consulta = (f"SELECT id, name, status FROM glpi_tickets WHERE name = %s AND status = 1;")
+                cursor.execute(consulta, (nome_chamado,))
 
                 resultados = cursor.fetchall() 
 
                 print(resultados)
 
+                if resultados:
+                    resultados_consulta.append(nome_biblioteca)
+
+            print(resultados_consulta)
+            
+            if resultados_consulta:
+                return resultados_consulta
+            else:
+                return ''
         except Exception as erro:
             print("Erro: ", erro)
 
         finally:
             cursor.close()
             fechar_conexao(conexao)
-
-consultaChamadosAtivos()
 
 
 def insercaoBanco(nome_biblioteca):
