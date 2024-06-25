@@ -38,12 +38,18 @@ def enviar_mensagens_internet():
                 if nome_biblioteca in email_dict:
                     dest = email_dict[nome_biblioteca]
                     assunto = f'Queda de rede na {nome_biblioteca}'
+                    corpo = (f'Olá, aqui é a equipe de TI, gostaria de informar que a rede da {nome_biblioteca} está ausente, já foi aberto um chamado para reparo e manutenção\n'
+                            f'Horário da queda: {dado[1]}\n\nObrigado pela atenção.\n\n*Esta é uma mensagem automática*\nFavor *NÃO* responder.')
+                    
+                    escrever_email(outlook, dest, assunto, corpo, nome_biblioteca)
+                    insercaoBanco(nome_biblioteca)
+
+                    dest = 'lseloy@prefeitura.sp.gov.br'
+                    assunto = f'Queda de rede na {nome_biblioteca}'
                     corpo = (f'Olá, aqui é a CSMB, gostaria de informar que a rede da {nome_biblioteca} está ausente e precisa de suporte.\n'
                             f'Horário da queda: {dado[1]}\n\nObrigado pela atenção.\n\n*Esta é uma mensagem automática*\nFavor *NÃO* responder.')
                     
                     escrever_email(outlook, dest, assunto, corpo, nome_biblioteca)
-
-                    insercaoBanco(nome_biblioteca)
                 else:
                     print(f'Email para {nome_biblioteca} não encontrado na planilha.')
 
