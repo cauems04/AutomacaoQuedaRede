@@ -1,5 +1,5 @@
 import win32com.client as win32
-from consultasDB import consultaBanco, insercaoBanco
+from consultasDB import consultaBanco, insercaoBanco, consultaChamadosAtivos
 from consultarEMAIL import pegarEMAIL
 
 outlook = win32.Dispatch('outlook.application')
@@ -21,6 +21,7 @@ def escrever_email(outlook, dest, assunto, corpo, nome_biblioteca):
 
 def enviar_mensagens_internet():
 
+    bibliotecas_chamados_ativos = consultaChamadosAtivos()
     dados = consultaBanco()
     email_dict = pegarEMAIL()
         
@@ -36,6 +37,7 @@ def enviar_mensagens_internet():
             if nome_biblioteca.startswith('Biblioteca'):
                 
                 if nome_biblioteca in email_dict:
+<<<<<<< HEAD
                     dest = email_dict[nome_biblioteca]
                     assunto = f'Queda de rede na {nome_biblioteca}'
                     corpo = (f'Olá, aqui é a equipe de TI, gostaria de informar que a rede da {nome_biblioteca} está ausente, já foi aberto um chamado para reparo e manutenção\n'
@@ -50,6 +52,21 @@ def enviar_mensagens_internet():
                             f'Horário da queda: {dado[1]}\n\nObrigado pela atenção.\n\n*Esta é uma mensagem automática*\nFavor *NÃO* responder.')
                     
                     escrever_email(outlook, dest, assunto, corpo, nome_biblioteca)
+=======
+
+                    if nome_biblioteca not in bibliotecas_chamados_ativos:
+                        dest = 'caue.ms04@gmail.com'
+                        assunto = f'Queda de rede na {nome_biblioteca}'
+                        corpo = (f'Olá, aqui é a CSMB, gostaria de informar que a rede da {nome_biblioteca} está ausente e precisa de suporte.\n'
+                                f'Horário da queda: {dado[1]}\n\nObrigado pela atenção.\n\n*Esta é uma mensagem automática*\nFavor *NÃO* responder.')
+                        
+                        escrever_email(outlook, dest, assunto, corpo, nome_biblioteca)
+
+                        insercaoBanco(nome_biblioteca)
+                    else:
+                        print(f'Já existe um chamado ativo para a {nome_biblioteca}')
+
+>>>>>>> main
                 else:
                     print(f'Email para {nome_biblioteca} não encontrado na planilha.')
 
