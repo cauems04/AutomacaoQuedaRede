@@ -13,7 +13,7 @@ def escrever_email(outlook, dest, assunto, corpo, nome_biblioteca):
         email.Subject = assunto
         email.Body = corpo
         email.Send()
-        print(f'Email enviado para: {dest} com sucesso!({nome_biblioteca})')
+        print(f'\nEmail enviado para: {dest} com sucesso!({nome_biblioteca})')
 
     except Exception as e:
         print('Erro ao enviar email: ', e)
@@ -37,19 +37,25 @@ def enviar_mensagens_internet():
             if nome_biblioteca.startswith('Biblioteca'):
                 
                 if nome_biblioteca in email_dict:
-
+                    
                     if nome_biblioteca not in bibliotecas_chamados_ativos:
-                        dest = 'caue.ms04@gmail.com'
+                        dest = 'lseloy@prefeitura.sp.gov.br'
                         assunto = f'Queda de rede na {nome_biblioteca}'
-                        corpo = (f'Olá, aqui é a CSMB, gostaria de informar que a rede da {nome_biblioteca} está ausente e precisa de suporte.\n'
-                                f'Horário da queda: {dado[1]}\n\nObrigado pela atenção.\n\n*Esta é uma mensagem automática*\nFavor *NÃO* responder.')
-                        
+                        corpo = (f'Ola, Nosso sistema de monitoramento identificou uma queda na rede de internet da {nome_biblioteca}, a queda ocorreu em {dado[1]}.\n\nDesde já, a cordenadoria do sistema municipal de bibliotecas agradece.')
+                            
+                        escrever_email(outlook, dest, assunto, corpo, nome_biblioteca)
+                        insercaoBanco(nome_biblioteca)
+
+                        dest = email_dict[nome_biblioteca]
+                        assunto = f'Queda de rede na {nome_biblioteca}'
+                        corpo = (f'Olá, aqui é a equipe de TI, gostaria de informar que a {nome_biblioteca} está sem rede de internet, já foi aberto um chamado para reparo e manutenção.\n'
+                                    f'Horário da queda: {dado[1]}\n\nObrigado pela atenção.\n\n*Esta é uma mensagem automática*\nFavor *NÃO* responder.')
+                            
                         escrever_email(outlook, dest, assunto, corpo, nome_biblioteca)
 
-                        insercaoBanco(nome_biblioteca)
                     else:
                         print(f'Já existe um chamado ativo para a {nome_biblioteca}')
-
+                    
                 else:
                     print(f'Email para {nome_biblioteca} não encontrado na planilha.')
 
