@@ -87,9 +87,10 @@ def insercaoBanco(nome_biblioteca):
         try:
             cursor = conexao.cursor()
 
-            comando = (f"INSERT INTO glpi_tickets (name, date) VALUES ('Queda de internet na {nome_biblioteca}', '{data_atual}');")
+            comando = (f"INSERT INTO glpi_tickets (name, date) VALUES (%s, %s);")
+            valores = (f'Queda de internet na {nome_biblioteca}', f'{data_atual}')
 
-            cursor.execute(comando)
+            cursor.execute(comando, valores)
 
             conexao.commit()
 
