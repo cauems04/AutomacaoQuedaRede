@@ -9,10 +9,9 @@ def pegarEMAIL():
             local = linha["Nome"]
             email = linha["E-mail"]
             email_dict[local] = email
-    
+
         return email_dict
     except Exception as e:
         print(f"Erro ao ler o arquivo Excel: {e}")
         return None
 
-pegarEMAIL()
