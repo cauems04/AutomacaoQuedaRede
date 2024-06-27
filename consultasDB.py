@@ -24,7 +24,7 @@ def consultaBanco():
 
                 resultados_consulta.append([nome_biblioteca, data, tempo_queda])
             
-            print(resultados_consulta)
+            print(resultados_consulta, '\n')
 
         except Exception as erro:
             print("Erro: ", erro)
@@ -57,12 +57,10 @@ def consultaChamadosAtivos():
 
                 resultados = cursor.fetchall() 
 
-                print(resultados)
-
                 if resultados:
                     resultados_consulta.append(nome_biblioteca)
 
-            print(resultados_consulta)
+            print(resultados_consulta, '\n')
             
             if resultados_consulta:
                 return resultados_consulta
@@ -94,7 +92,7 @@ def insercaoBanco(nome_biblioteca):
 
             conexao.commit()
 
-            print('Dados inseridos!')
+            print('Dados inseridos!\n')
 
         except Exception as erro:
             print("Erro: ", erro)

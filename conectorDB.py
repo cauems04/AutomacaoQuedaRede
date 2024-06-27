@@ -12,7 +12,7 @@ def conectar_banco_de_dados(banco_nome):
         )
 
         if conexao.is_connected():
-            print("Conexão bem-sucedida!\nBanco acessado: ", banco_nome)
+            print("Banco acessado: ", banco_nome)
             return conexao
 
     except mysql.connector.Error as erro:
@@ -25,4 +25,3 @@ def conectar_banco_de_dados(banco_nome):
 def fechar_conexao(conexao):
     if conexao.is_connected():
         conexao.close()
-        print("Conexão fechada.")
