@@ -25,8 +25,6 @@ def enviar_mensagens_internet():
     bibliotecas_chamados_ativos = consultaChamadosAtivos()
     dados = consultaBanco()
     email_dict = pegarEMAIL()
-
-    dados.append(['10.59.208.183', '20/03/2024 07:06:41', '00:30:00'])
         
     if email_dict is None:
         print("Erro ao obter emails. Verifique o arquivo Excel.")
