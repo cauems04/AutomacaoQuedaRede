@@ -73,7 +73,7 @@ def enviar_mensagens_internet():
     except Exception as e:
         print('Erro :', e)
 
-schedule.every(10).minutes.do(enviar_mensagens_internet)
+schedule.every(1).seconds.do(enviar_mensagens_internet)
 
 while True:
     schedule.run_pending()

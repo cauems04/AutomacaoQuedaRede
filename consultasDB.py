@@ -1,5 +1,5 @@
 from conectorDB import conectar_banco_de_dados, fechar_conexao
-from consultarEMAIL import pegarEMAIL
+from consultarEMAIL import pegar_EMAIL
 from datetime import datetime, timedelta
 
 def consulta_banco():
@@ -39,7 +39,7 @@ def consulta_banco():
 def consulta_chamados_ativos():
     resultados_consulta = []
     
-    email_dict = pegarEMAIL()
+    email_dict = pegar_EMAIL()
 
     lista_nome_bibliotecas = []
     lista_nome_chamados = []
