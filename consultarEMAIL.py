@@ -1,6 +1,6 @@
 import pandas as pd
 
-def pegarEMAIL():
+def pegar_EMAIL():
 
     email_dict = {}
     try:
