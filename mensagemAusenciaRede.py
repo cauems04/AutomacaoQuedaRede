@@ -1,7 +1,7 @@
 import win32com.client as win32
 import schedule
-from consultasDB import consultaBanco, insercaoBanco, consultaChamadosAtivos
-from consultarEMAIL import pegarEMAIL
+from consultasDB import consulta_banco, insercao_banco, consulta_chamados_ativos
+from consultarEMAIL import pegar_EMAIL
 
 outlook = win32.Dispatch('outlook.application')
 
@@ -22,9 +22,9 @@ def escrever_email(outlook, dest, assunto, corpo, nome_biblioteca):
 
 def enviar_mensagens_internet():
 
-    bibliotecas_chamados_ativos = consultaChamadosAtivos()
-    dados = consultaBanco()
-    email_dict = pegarEMAIL()
+    bibliotecas_chamados_ativos = consulta_chamados_ativos()
+    dados = consulta_banco()
+    email_dict = pegar_EMAIL()
         
     if email_dict is None:
         print("Erro ao obter emails. Verifique o arquivo Excel.")
@@ -47,7 +47,7 @@ def enviar_mensagens_internet():
                             corpo = (f'Ola, Nosso sistema de monitoramento identificou uma queda na rede de internet da {nome_biblioteca}, a queda ocorreu em {dado[1]}.\n\nDesde já, a cordenadoria do sistema municipal de bibliotecas agradece.')
                                     
                             escrever_email(outlook, dest, assunto, corpo, nome_biblioteca)
-                            insercaoBanco(nome_biblioteca)
+                            insercao_banco(nome_biblioteca)
 
                             dest = email_dict[nome_biblioteca]
                             assunto = f'Queda de rede na {nome_biblioteca}'

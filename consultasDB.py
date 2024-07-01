@@ -2,7 +2,7 @@ from conectorDB import conectar_banco_de_dados, fechar_conexao
 from consultarEMAIL import pegarEMAIL
 from datetime import datetime, timedelta
 
-def consultaBanco():
+def consulta_banco():
     resultados_consulta = []
     
     conexao = conectar_banco_de_dados('zabbix')
@@ -36,7 +36,7 @@ def consultaBanco():
     return resultados_consulta
 
 
-def consultaChamadosAtivos():
+def consulta_chamados_ativos():
     resultados_consulta = []
     
     email_dict = pegarEMAIL()
@@ -74,7 +74,7 @@ def consultaChamadosAtivos():
             fechar_conexao(conexao)
 
 
-def insercaoBanco(nome_biblioteca):
+def insercao_banco(nome_biblioteca):
 
     conexao = conectar_banco_de_dados('tihdteste')
     if conexao:
