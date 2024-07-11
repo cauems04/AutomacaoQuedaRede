@@ -25,7 +25,7 @@ def enviar_mensagens_internet():
     bibliotecas_chamados_ativos = consulta_chamados_ativos()
     dados = consulta_banco()
     email_dict = pegar_EMAIL()
-        
+    
     if email_dict is None:
         print("Erro ao obter emails. Verifique o arquivo Excel.")
         return
@@ -49,7 +49,7 @@ def enviar_mensagens_internet():
                             escrever_email(outlook, dest, assunto, corpo, nome_biblioteca)
                             insercao_banco(nome_biblioteca)
 
-                            dest = email_dict[nome_biblioteca]
+                            dest = email_dict[nome_biblioteca][0]
                             assunto = f'Queda de rede na {nome_biblioteca}'
                             corpo = (f'Olá, aqui é a equipe de TI, gostaria de informar que a {nome_biblioteca} está sem rede de internet, já foi aberto um chamado para reparo e manutenção.\n'
                                         f'Horário da queda: {dado[1]}\n\nObrigado pela atenção.\n\n*Esta é uma mensagem automática*\nFavor *NÃO* responder.')
@@ -73,7 +73,7 @@ def enviar_mensagens_internet():
     except Exception as e:
         print('Erro :', e)
 
-schedule.every(1).seconds.do(enviar_mensagens_internet)
+schedule.every(5).seconds.do(enviar_mensagens_internet)
 
 while True:
     schedule.run_pending()

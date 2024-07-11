@@ -56,7 +56,7 @@ def consulta_chamados_ativos():
                 cursor.execute(consulta, (nome_chamado,))
 
                 resultados = cursor.fetchall() 
-
+                print(resultados)
                 if resultados:
                     resultados_consulta.append(nome_biblioteca)
 
@@ -76,6 +76,8 @@ def consulta_chamados_ativos():
 
 def insercao_banco(nome_biblioteca):
 
+    email_dict = pegar_EMAIL()
+
     conexao = conectar_banco_de_dados('tihdteste')
     if conexao:
 
@@ -85,8 +87,8 @@ def insercao_banco(nome_biblioteca):
         try:
             cursor = conexao.cursor()
 
-            comando = (f"INSERT INTO glpi_tickets (name, date) VALUES (%s, %s);")
-            valores = (f'Queda de internet na {nome_biblioteca}', f'{data_atual}')
+            comando = (f"INSERT INTO glpi_tickets (name, date, locations_id) VALUES (%s, %s, %s);")
+            valores = (f'Queda de internet na {nome_biblioteca}', f'{data_atual}', email_dict[nome_biblioteca][1])
 
             cursor.execute(comando, valores)
 
